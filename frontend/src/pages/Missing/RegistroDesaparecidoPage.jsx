@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { registerMissingSchema } from '../../validations/missing';
 import { useCreateMissing } from '../../hooks/useMissingQueries';
+import venezuelaData from '../../utils/venezuela.json';
 
 export default function RegistroDesaparecidoPage() {
   const navigate = useNavigate();
@@ -12,6 +13,19 @@ export default function RegistroDesaparecidoPage() {
 
   const [foto, setFoto] = useState(null);
   const [preview, setPreview] = useState(null);
+
+  // Ubicación selectores dinámicos
+  const [selectedEstado, setSelectedEstado] = useState('');
+  const [selectedMunicipio, setSelectedMunicipio] = useState('');
+  const [selectedParroquia, setSelectedParroquia] = useState('');
+
+  const municipiosDisponibles = selectedEstado
+    ? venezuelaData.find((e) => e.estado === selectedEstado)?.municipios || []
+    : [];
+
+  const parroquiasDisponibles = selectedEstado && selectedMunicipio
+    ? municipiosDisponibles.find((m) => m.municipio === selectedMunicipio)?.parroquias || []
+    : [];
 
   const {
     register,
@@ -23,9 +37,20 @@ export default function RegistroDesaparecidoPage() {
   });
 
   const onSubmit = async (data) => {
+    // Concatenar ubicación de forma ordenada
+    const parts = [];
+    if (selectedEstado) parts.push(`Estado ${selectedEstado}`);
+    if (selectedMunicipio) parts.push(`Municipio ${selectedMunicipio}`);
+    if (selectedParroquia) parts.push(`Parroquia ${selectedParroquia}`);
+    if (data.ultimaUbicacion) parts.push(data.ultimaUbicacion);
+
+    const fullUbicacion = parts.join(', ');
+
     const formData = new FormData();
     Object.entries(data).forEach(([key, value]) => {
-      if (value !== undefined && value !== null && value !== '') {
+      if (key === 'ultimaUbicacion') {
+        formData.append(key, fullUbicacion);
+      } else if (value !== undefined && value !== null && value !== '') {
         formData.append(key, value);
       }
     });
@@ -40,6 +65,9 @@ export default function RegistroDesaparecidoPage() {
       reset();
       setFoto(null);
       setPreview(null);
+      setSelectedEstado('');
+      setSelectedMunicipio('');
+      setSelectedParroquia('');
       navigate('/resumen');
     } catch (error) {
       const msg = error.response?.data?.message || 'Error al procesar el registro.';
@@ -154,17 +182,20 @@ export default function RegistroDesaparecidoPage() {
               )}
             </div>
 
-            {/* Última Ubicación */}
+
+
+            {/* Dirección Específica */}
             <div className="col-span-1 md:col-span-2">
               <label className="block text-xs font-bold text-white/90 uppercase tracking-wide mb-1.5">
-                Última Ubicación Conocida <span className="text-[#fecb00]">*</span>
+                Dirección Específica / Detalle <span className="text-[#fecb00]">*</span>
               </label>
               <input
                 {...register('ultimaUbicacion')}
                 className={`w-full px-4 py-2.5 bg-white/10 border ${errors.ultimaUbicacion ? 'border-red-400' : 'border-white/20'
                   } rounded-xl text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-[#fecb00] focus:border-transparent transition-all text-sm`}
-                placeholder="Ej. Sector Centro, Calle 5, Maracaibo"
+                placeholder="Ej. Calle Principal, Sector 4, casa N° 12"
               />
+              <p className="mt-1 text-[10px] text-white/50">Describe calles, sectores, puntos de referencia, o datos específicos de la ubicación.</p>
               {errors.ultimaUbicacion && (
                 <p className="mt-1.5 text-xs text-red-400 flex items-center gap-1">
                   <span className="material-symbols-outlined text-[16px]">error</span>
@@ -172,7 +203,79 @@ export default function RegistroDesaparecidoPage() {
                 </p>
               )}
             </div>
+            {/* Venezuela Location Selectors */}
 
+            <div className="col-span-1 md:col-span-2 grid grid-cols-1 sm:grid-cols-3 gap-4 bg-white/5 p-4 rounded-xl border border-white/10">
+              <div className="col-span-1 sm:col-span-3 pb-1 border-b border-white/15">
+                <span className="text-[10px] font-bold text-[#fecb00] uppercase tracking-wider">Ubicación Geográfica (Opcional)</span>
+              </div>
+
+              {/* Estado Select */}
+              <div>
+                <label className="block text-[10px] font-bold text-white/80 uppercase tracking-wider mb-1">
+                  Estado
+                </label>
+                <select
+                  value={selectedEstado}
+                  onChange={(e) => {
+                    setSelectedEstado(e.target.value);
+                    setSelectedMunicipio('');
+                    setSelectedParroquia('');
+                  }}
+                  className="w-full px-3 py-2 bg-[#00346f] border border-white/20 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-[#fecb00] cursor-pointer text-xs"
+                >
+                  <option value="" className="bg-[#00346f] text-white/50">Seleccione Estado</option>
+                  {venezuelaData.map((e) => (
+                    <option key={e.id_estado} value={e.estado} className="bg-[#00346f] text-white">
+                      {e.estado}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Municipio Select */}
+              <div>
+                <label className="block text-[10px] font-bold text-white/80 uppercase tracking-wider mb-1">
+                  Municipio
+                </label>
+                <select
+                  value={selectedMunicipio}
+                  disabled={!selectedEstado}
+                  onChange={(e) => {
+                    setSelectedMunicipio(e.target.value);
+                    setSelectedParroquia('');
+                  }}
+                  className="w-full px-3 py-2 bg-[#00346f] border border-white/20 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-[#fecb00] cursor-pointer text-xs disabled:opacity-40 disabled:cursor-not-allowed"
+                >
+                  <option value="" className="bg-[#00346f] text-white/50">Seleccione Municipio</option>
+                  {municipiosDisponibles.map((m) => (
+                    <option key={m.municipio} value={m.municipio} className="bg-[#00346f] text-white">
+                      {m.municipio}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Parroquia Select */}
+              <div>
+                <label className="block text-[10px] font-bold text-white/80 uppercase tracking-wider mb-1">
+                  Parroquia
+                </label>
+                <select
+                  value={selectedParroquia}
+                  disabled={!selectedMunicipio}
+                  onChange={(e) => setSelectedParroquia(e.target.value)}
+                  className="w-full px-3 py-2 bg-[#00346f] border border-white/20 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-[#fecb00] cursor-pointer text-xs disabled:opacity-40 disabled:cursor-not-allowed"
+                >
+                  <option value="" className="bg-[#00346f] text-white/50">Seleccione Parroquia</option>
+                  {parroquiasDisponibles.map((p) => (
+                    <option key={p} value={p} className="bg-[#00346f] text-white">
+                      {p}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
             {/* Teléfono */}
             <div className="col-span-1 md:col-span-2">
               <label className="block text-xs font-bold text-white/90 uppercase tracking-wide mb-1.5">
