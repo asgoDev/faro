@@ -15,13 +15,13 @@
   --color-tertiary-fixed-dim: 240 193 44;
   /* #f0c12c */
 
-  --color-on-surface-variant: 63 73 65;
-  /* #3f4941 */
+  --color-on-surface-variant: 63 74 84;
+  /* #3f4a54 */
 
-  --color-primary-container: 38 132 81;
-  /* #268451 */
-  --color-primary: 0 106 59;
-  /* #006a3b */
+  --color-primary-container: 38 60 132;
+  /* #263c84 */
+  --color-primary: 39 51 118;
+  /* #273376 */
 
   --color-tertiary: 117 91 0;
   /* #755b00 */
@@ -37,16 +37,16 @@
   --color-secondary-fixed-dim: 233 195 73;
   /* #e9c349 */
 
-  --color-inverse-primary: 126 217 158;
-  /* #7ed99e */
+  --color-inverse-primary: 122 158 224;
+  /* #7a9ee0 */
   --color-inverse-surface: 13 44 110;
   /* #0d2c6e */
 
   --color-on-background: 0 23 74;
   /* #00174a */
 
-  --color-outline-variant: 190 202 190;
-  /* #becabe */
+  --color-outline-variant: 190 200 212;
+  /* #bec8d4 */
 
   --color-surface-container-low: 242 243 255;
   /* #f2f3ff */
@@ -67,8 +67,8 @@
   --color-secondary-container: 254 214 91;
   /* #fed65b */
 
-  --color-primary-fixed: 154 246 184;
-  /* #9af6b8 */
+  --color-primary-fixed: 154 184 246;
+  /* #9ab8f6 */
 
   --color-surface-container: 234 237 255;
   /* #eaedff */
@@ -79,14 +79,17 @@
 
   --color-inverse-on-surface: 238 240 255;
 
-  --color-on-primary-fixed-variant: 0 82 45;
+  --color-on-primary-fixed-variant: 0 51 128;
+  /* #003380 */
 
   --color-surface-dim: 207 217 255;
   --color-surface-container-high: 227 231 255;
 
-  --color-primary-fixed-dim: 126 217 158;
+  --color-primary-fixed-dim: 122 158 224;
+  /* #7a9ee0 */
 
-  --color-surface-tint: 0 109 61;
+  --color-surface-tint: 39 51 118;
+  /* #273376 */
 
   --color-surface-variant: 219 225 255;
 
@@ -101,15 +104,17 @@
 
   --color-on-error-container: 147 0 10;
 
-  --color-on-primary-fixed: 0 33 15;
+  --color-on-primary-fixed: 0 26 74;
+  /* #001a4a */
 
   --color-on-tertiary-fixed-variant: 88 68 0;
 
-  --color-on-primary-container: 246 255 244;
+  --color-on-primary-container: 255 255 255;
 
   --color-secondary-fixed: 255 224 136;
 
-  --color-outline: 111 122 112;
+  --color-outline: 111 122 131;
+  /* #6f7a83 */
 
   --color-surface: 250 248 255;
 }

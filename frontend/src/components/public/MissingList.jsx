@@ -1,15 +1,23 @@
 import React from 'react';
 import PersonCard from './PersonCard';
 
-export default function MissingList({ persons, isLoading, total, onPersonClick }) {
+export default function MissingList({
+  persons,
+  isLoading,
+  total,
+  page,
+  pages,
+  onPageChange,
+  onPersonClick,
+}) {
   return (
-    <section className="px-4 py-8 flex flex-col gap-4 max-w-lg mx-auto">
+    <section className="px-4 py-8 flex flex-col gap-4 w-full max-w-xl mx-auto">
       <div className="flex items-center justify-between mb-2">
         <h3 className="font-headline-md text-lg sm:text-xl text-white font-bold font-montserrat">
-          Casos Recientes
+          Casos Reportados
         </h3>
         <span className="text-xs text-white/60 font-semibold font-montserrat">
-          Total: {isLoading ? '...' : `${total} activos`}
+          Total: {isLoading ? '...' : `${total}`}
         </span>
       </div>
 
@@ -17,11 +25,13 @@ export default function MissingList({ persons, isLoading, total, onPersonClick }
         {isLoading ? (
           // Skeleton loaders
           Array.from({ length: 4 }).map((_, idx) => (
-            <div key={idx} className="glass-card p-4 rounded-xl flex items-center gap-4 animate-pulse">
-              <div className="w-14 h-14 bg-white/10 rounded-lg shrink-0"></div>
-              <div className="flex-1 space-y-2">
-                <div className="h-4 bg-white/20 rounded w-2/3"></div>
-                <div className="h-3 bg-white/10 rounded w-1/2"></div>
+            <div key={idx} className="glass-card p-4 rounded-xl flex items-center gap-3.5 animate-pulse">
+              <div className="flex-1 space-y-2.5">
+                <div className="flex justify-between items-center">
+                  <div className="h-4 bg-white/20 rounded w-1/2"></div>
+                  <div className="h-3.5 bg-white/15 rounded-full w-12"></div>
+                </div>
+                <div className="h-3 bg-white/10 rounded w-1/3"></div>
               </div>
             </div>
           ))
@@ -43,6 +53,32 @@ export default function MissingList({ persons, isLoading, total, onPersonClick }
           ))
         )}
       </div>
+
+      {/* Pagination controls */}
+      {!isLoading && pages > 1 && (
+        <div className="flex items-center justify-between mt-4 px-2 py-3 glass-card rounded-xl">
+          <button
+            disabled={page <= 1}
+            onClick={() => onPageChange(page - 1)}
+            className="flex items-center justify-center p-2 text-white/70 hover:text-white disabled:opacity-30 disabled:pointer-events-none active:scale-95 transition-transform"
+          >
+            <span className="material-symbols-outlined">chevron_left</span>
+          </button>
+
+          <span className="text-xs font-montserrat font-semibold text-white/80">
+            Pág. {page} de {pages}
+          </span>
+
+          <button
+            disabled={page >= pages}
+            onClick={() => onPageChange(page + 1)}
+            className="flex items-center justify-center p-2 text-white/70 hover:text-white disabled:opacity-30 disabled:pointer-events-none active:scale-95 transition-transform"
+          >
+            <span className="material-symbols-outlined">chevron_right</span>
+          </button>
+        </div>
+      )}
     </section>
   );
 }
+

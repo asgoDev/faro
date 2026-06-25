@@ -57,8 +57,8 @@ export default function LoginPage() {
         {/* Content */}
         <div className="relative z-10 flex flex-col justify-center items-center w-full p-12 text-white">
           {/* Logo */}
-          <div className="w-36 h-36 rounded-2xl bg-white/15 backdrop-blur-sm flex items-center justify-center mb-8 shadow-2xl border border-white/20">
-            <Icon name="shield" className="text-6xl text-white" />
+          <div className="w-36 h-36 rounded-2xl bg-white/15 backdrop-blur-sm flex items-center justify-center mb-8 shadow-2xl border border-white/20 overflow-hidden p-1">
+            <img src="/bandera.webp" alt="Logo" className="w-full h-full object-cover rounded-xl" />
           </div>
 
           <h1 className="text-display-lg font-display-lg text-center mb-4">
@@ -99,8 +99,8 @@ export default function LoginPage() {
         <div className="w-full max-w-md animate-fade-in-up">
           {/* Mobile logo */}
           <div className="lg:hidden flex flex-col items-center mb-8 gap-2">
-            <div className="w-20 h-20 rounded-xl flex items-center justify-center bg-primary-container/20 text-primary">
-              <Icon name="shield" className="text-4xl" />
+            <div className="w-20 h-20 rounded-xl flex items-center justify-center bg-primary-container/20 text-primary overflow-hidden p-0.5">
+              <img src="/bandera.webp" alt="Logo" className="w-full h-full object-cover rounded-lg" />
             </div>
             <h1 className="text-headline-md font-headline-md text-primary">Plantilla Web</h1>
           </div>

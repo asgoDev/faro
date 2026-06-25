@@ -44,8 +44,8 @@ export default function Sidebar({ isOpen, onClose }) {
         `}
       >
         <div className="p-lg flex flex-col items-center gap-sm">
-          <div className="w-16 h-16 rounded-xl flex items-center justify-center bg-primary-container/20 text-primary">
-            <Icon name="shield" className="text-4xl" />
+          <div className="w-16 h-16 rounded-xl flex items-center justify-center bg-primary-container/20 text-primary overflow-hidden p-0.5">
+            <img src="/bandera.webp" alt="Logo" className="w-full h-full object-cover rounded-lg" />
           </div>
           <hr className="w-[75%] h-px bg-primary" />
           <div className="text-center">

@@ -1,13 +1,21 @@
 import React, { useState } from 'react';
+import bandera from '/bandera.webp';
+
 
 export default function TopAppBar({ search, setSearch }) {
   const [showSearch, setShowSearch] = useState(false);
 
   return (
     <header className="fixed top-0 w-full z-50 bg-[#00346f] text-white shadow-md border-b border-white/10 flex items-center justify-between px-4 h-16">
+      <div className="w-20 h-10  p-1">
+        <img
+          alt="Logo Faro de Venezuela"
+          className="w-full h-full object-contain "
+          src={bandera}
+        />
+      </div>
       {!showSearch ? (
         <>
-          <div className="w-8"></div>
           <h1 className="font-headline-md text-lg sm:text-xl font-bold tracking-tight text-white uppercase text-center flex-1 font-montserrat">
             Faro de Venezuela
           </h1>
@@ -19,7 +27,7 @@ export default function TopAppBar({ search, setSearch }) {
           </button>
         </>
       ) : (
-        <div className="flex items-center w-full gap-2">
+        <div className="flex items-center w-full">
           <button
             onClick={() => {
               setShowSearch(false);

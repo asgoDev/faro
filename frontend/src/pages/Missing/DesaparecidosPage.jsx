@@ -1,31 +1,37 @@
 import React, { useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
 import PublicLayout from '../../components/public/PublicLayout';
 import HeroSection from '../../components/public/HeroSection';
 import StatsSection from '../../components/public/StatsSection';
 import MissingList from '../../components/public/MissingList';
 import PersonDetailModal from '../../components/public/PersonDetailModal';
-import { getMissing, getStats } from '../../services/missingService';
+import { useMissingStore } from '../../stores/missingStore';
+import { useMissingList, useMissingStats } from '../../hooks/useMissingQueries';
 
 export default function DesaparecidosPage() {
-  const [search, setSearch] = useState('');
-  const [activeTab, setActiveTab] = useState('inicio');
+  const {
+    search,
+    setSearch,
+    page,
+    setPage,
+    activeTab,
+    setActiveTab,
+  } = useMissingStore();
+  
   const [selectedPerson, setSelectedPerson] = useState(null);
 
   // Query para obtener las estadísticas
-  const { data: statsData, isLoading: statsLoading } = useQuery({
-    queryKey: ['missingStats'],
-    queryFn: getStats,
-    refetchInterval: 30000, // Refrescar stats cada 30 segundos
-  });
+  const { data: statsData, isLoading: statsLoading } = useMissingStats();
 
-  // Query para obtener el listado con filtro de búsqueda
-  const { data: missingData, isLoading: missingLoading } = useQuery({
-    queryKey: ['missingList', search],
-    queryFn: () => getMissing({ search, limit: 30, estado: 'DESAPARECIDO' }),
+  // Query para obtener el listado con filtro de búsqueda y paginación
+  const { data: missingData, isLoading: missingLoading } = useMissingList({
+    page,
+    limit: 10,
+    search,
+    estado: 'DESAPARECIDO',
   });
 
   const persons = missingData?.items || [];
+  const pagination = missingData?.pagination || { total: 0, page: 1, pages: 1 };
   const totalActivos = statsData?.desaparecidos ?? 0;
 
   return (
@@ -33,12 +39,7 @@ export default function DesaparecidosPage() {
       search={search}
       setSearch={setSearch}
       activeTab={activeTab}
-      setActiveTab={(tab) => {
-        setActiveTab(tab);
-        if (tab === 'inicio') {
-          setSearch('');
-        }
-      }}
+      setActiveTab={setActiveTab}
     >
       {activeTab === 'inicio' || activeTab === 'busqueda' ? (
         <>
@@ -47,7 +48,10 @@ export default function DesaparecidosPage() {
           <MissingList
             persons={persons}
             isLoading={missingLoading}
-            total={totalActivos}
+            total={pagination.total || totalActivos}
+            page={page}
+            pages={pagination.pages}
+            onPageChange={setPage}
             onPersonClick={(person) => setSelectedPerson(person)}
           />
         </>
@@ -103,3 +107,4 @@ export default function DesaparecidosPage() {
     </PublicLayout>
   );
 }
+
