@@ -9,4 +9,5 @@ export const registerMissingSchema = z.object({
   ultimaUbicacion: z.string().min(3, 'Indica una ubicación'),
   telefonoContacto: z.string().min(7, 'Teléfono muy corto').regex(TELEFONO_INTERNACIONAL_REGEX, 'Teléfono inválido'),
   rasgosParticulares: z.string().optional(),
+  fotoUrl: z.string().optional().nullable(),
 });

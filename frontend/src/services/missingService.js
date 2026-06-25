@@ -6,12 +6,8 @@ const publicApi = axios.create({
   baseURL: import.meta.env.VITE_API_URL || '/api',
 });
 
-export const registerMissing = async (formData) => {
-  const { data } = await publicApi.post('/missing', formData, {
-    headers: {
-      'Content-Type': 'multipart/form-data',
-    },
-  });
+export const registerMissing = async (payload) => {
+  const { data } = await publicApi.post('/missing', payload);
   return data;
 };
 

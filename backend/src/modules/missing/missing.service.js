@@ -3,7 +3,7 @@ import MissingPerson from './missing.model.js';
 export const registerMissing = async (data, file) => {
   const newPerson = new MissingPerson({
     ...data,
-    fotoUrl: file?.path || null, // Cloudinary devolverá 'path' como secure_url
+    fotoUrl: file?.path || data.fotoUrl || null, // Cloudinary secure_url from Multer or directly from frontend
   });
   await newPerson.save();
   return newPerson;

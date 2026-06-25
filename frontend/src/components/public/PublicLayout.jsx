@@ -14,7 +14,7 @@ export default function PublicLayout({
       <TopAppBar search={search} setSearch={setSearch} />
 
       {/* Main Content Area */}
-      <main className="pt-16 pb-12 flex-1 flex flex-col">{children}</main>
+      <main className="pt-16 pb-0 flex-1 flex flex-col">{children}</main>
 
       {/* Improved Footer */}
       <footer className="w-full bg-black/40 text-white/80 text-xs flex flex-col items-center py-10 px-6 text-center gap-6 border-t border-white/10 shrink-0">
