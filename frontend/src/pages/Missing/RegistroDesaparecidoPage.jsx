@@ -210,7 +210,7 @@ export default function RegistroDesaparecidoPage() {
             Faro de Venezuela
           </h1>
           <p className="mt-1 text-sm text-white/80 font-semibold uppercase tracking-wider">
-            Reportar Persona Desaparecida
+            Reportar Persona Encontrada
           </p>
           <p className="mt-2 text-xs text-white/60 max-w-md mx-auto leading-relaxed">
             La información suministrada será de carácter público para ayudar en la búsqueda y coordinación con rescatistas.
@@ -286,7 +286,7 @@ export default function RegistroDesaparecidoPage() {
             {/* Dirección Específica */}
             <div className="col-span-1 md:col-span-2">
               <label className="block text-xs font-bold text-white/90 uppercase tracking-wide mb-1.5">
-                Dirección Específica / Detalle <span className="text-[#fecb00]">*</span>
+                Donde se encuentra / Detalle <span className="text-[#fecb00]">*</span>
               </label>
               <input
                 {...register('ultimaUbicacion')}
