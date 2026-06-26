@@ -10,8 +10,8 @@ export const apiLimiter = rateLimit({
     message: {
         message: 'Demasiadas peticiones desde esta IP. Por favor intente de nuevo más tarde.',
     },
-    standardHeaders: true, // Devuelve información del límite en las cabeceras `RateLimit-*`
-    legacyHeaders: false, // Deshabilita las cabeceras `X-RateLimit-*` antiguas
+    standardHeaders: true,
+    legacyHeaders: false,
 });
 
 /**
@@ -26,4 +26,20 @@ export const authLimiter = rateLimit({
     },
     standardHeaders: true,
     legacyHeaders: false,
+});
+
+/**
+ * Limitador para el registro de desaparecidos (POST público).
+ * Permite 1 registro por minuto por IP para prevenir spam
+ * sin bloquear usuarios legítimos.
+ */
+export const registerMissingLimiter = rateLimit({
+    windowMs: 60 * 1000, // 1 minuto
+    max: 1,
+    message: {
+        message: 'Solo se permite un registro por minuto. Por favor espere antes de intentar de nuevo.',
+    },
+    standardHeaders: true,
+    legacyHeaders: false,
+    skipSuccessfulRequests: false, // Contar también los exitosos
 });

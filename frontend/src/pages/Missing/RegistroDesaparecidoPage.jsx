@@ -163,8 +163,12 @@ export default function RegistroDesaparecidoPage() {
       setSelectedParroquia('');
       navigate('/resumen');
     } catch (error) {
-      const msg = error.response?.data?.message || 'Error al procesar el registro.';
-      toast.error(msg);
+      if (error.response?.status === 429) {
+        toast.error('Solo se permite un registro por minuto. Por favor espere un momento.');
+      } else {
+        const msg = error.response?.data?.message || 'Error al procesar el registro.';
+        toast.error(msg);
+      }
     } finally {
       setEnviandoForm(false);
     }
