@@ -33,12 +33,9 @@ export default function PersonCard({ person, onClick }) {
             {person.nombreCompleto}
           </h4>
           <span
-            className={`px-2 py-0.5 text-[9px] font-extrabold uppercase rounded-full tracking-wider shrink-0 ${!person.estado === 'ENCONTRADO'
-              ? 'bg-green-500/20 text-green-300 border border-green-500/30'
-              : 'bg-red-500/20 text-red-300 border border-red-500/30'
-              }`}
+            className={`px-2 py-0.5 text-[9px] font-extrabold uppercase rounded-full tracking-wider shrink-0 bg-green-500/20 text-green-300 border border-green-500/30'
           >
-            {!person.estado === 'ENCONTRADO' ? 'Encontrado' : 'Desaparecido'}
+            Encontrado
           </span>
         </div>
 
