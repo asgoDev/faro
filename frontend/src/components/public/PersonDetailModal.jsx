@@ -87,7 +87,7 @@ export default function PersonDetailModal({ person, onClose }) {
                 : 'bg-red-500 text-white border border-red-400/30'
                 }`}
             >
-              {person.estado === 'ENCONTRADO' ? 'Encontrado' : 'Desaparecido'}
+              {person.estado === 'ENCONTRADO' ? 'Encontrado' : 'Encontrado'}
             </span>
           </div>
 
@@ -172,19 +172,7 @@ export default function PersonDetailModal({ person, onClose }) {
 
         {/* Footer Area - Replaced call button with Report as Found button */}
         <div className="p-4 border-t border-white/10 bg-[#002d60] flex gap-2">
-          {person.estado === 'DESAPARECIDO' ? (
-            <button
-              onClick={() => setShowReportForm(true)}
-              className="w-full bg-emerald-500 hover:bg-emerald-600 text-white py-3.5 rounded-2xl font-extrabold flex items-center justify-center gap-2 hover:scale-[1.01] active:scale-95 transition-all text-sm tracking-wide shadow-lg cursor-pointer border border-emerald-400/20"
-            >
-              REPORTAR COMO ENCONTRADO(A)
-            </button>
-          ) : (
-            <div className="w-full bg-emerald-500/20 text-emerald-300 py-3.5 rounded-2xl font-bold flex items-center justify-center gap-2 border border-emerald-500/30">
-              <span className="material-symbols-outlined text-base">check_circle</span>
-              ¡LOCALIZADO(A) SANO Y SALVO!
-            </div>
-          )}
+          
         </div>
 
         {/* Report Overlay Form */}
