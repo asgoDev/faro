@@ -32,11 +32,6 @@ export default function PersonCard({ person, onClick }) {
           <h4 className="font-bold text-white font-montserrat truncate text-base">
             {person.nombreCompleto}
           </h4>
-          <span
-            className={`px-2 py-0.5 text-[9px] font-extrabold uppercase rounded-full tracking-wider shrink-0 bg-green-500/20 text-green-300 border border-green-500/30'
-          >
-            Encontrado
-          </span>
         </div>
 
         <div className="flex items-center gap-1 text-white/70 text-xs sm:text-sm mt-1.5">
