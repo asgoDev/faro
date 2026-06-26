@@ -73,7 +73,7 @@ export default function RegistroDesaparecidoPage() {
   useEffect(() => {
     const apiBaseUrl = import.meta.env.VITE_API_URL || '/api';
     const healthUrl = apiBaseUrl.endsWith('/') ? `${apiBaseUrl}health` : `${apiBaseUrl}/health`;
-    axios.get(healthUrl).catch(() => {});
+    axios.get(healthUrl).catch(() => { });
   }, []);
 
   // Ubicación selectores dinámicos
@@ -129,7 +129,7 @@ export default function RegistroDesaparecidoPage() {
         const cloudName = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME || 'dvereebux';
         const response = await axios.post(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, uploadData);
         let rawUrl = response.data.secure_url;
-        
+
         // Optimizar la imagen usando transformaciones en la URL de Cloudinary para que sea ligera al recuperar
         if (rawUrl && rawUrl.includes('/upload/')) {
           uploadedFotoUrl = rawUrl.replace('/upload/', '/upload/f_auto,q_auto,w_800,c_limit/');
@@ -137,8 +137,10 @@ export default function RegistroDesaparecidoPage() {
           uploadedFotoUrl = rawUrl;
         }
       } catch (uploadError) {
-        console.error('Error al subir imagen a Cloudinary:', uploadError);
-        toast.error('Error al subir la foto a los servidores. Intente nuevamente.');
+        console.error('Error al subir imagen a Cloudinary:', uploadError.response?.data || uploadError);
+        const detail = uploadError.response?.data?.error?.message;
+        const msg = detail ? `Error al subir la foto: ${detail}` : 'Error al subir la foto a los servidores. Intente nuevamente.';
+        toast.error(msg);
         setEnviandoForm(false);
         return;
       }
