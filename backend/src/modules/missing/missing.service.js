@@ -30,10 +30,11 @@ export const registerMissing = async (data, file) => {
  * Las búsquedas con texto libre no se cachean para evitar
  * acumulación de entradas arbitrarias en memoria.
  */
-export const listMissing = async ({ page = 1, limit = 10, search = '', estado = 'DESAPARECIDO' }) => {
+export const listMissing = async ({ page = 1, limit = 20, search = '', estado = 'DESAPARECIDO', sexo = '' }) => {
   // Solo cachear consultas sin búsqueda de texto libre (navegación normal)
   const shouldCache = !search;
-  const cacheKey = `${LIST_PREFIX}${estado}:p${page}:l${limit}`;
+  // Aislamos la caché por estado y sexo para evitar colisiones entre filtros
+  const cacheKey = `${LIST_PREFIX}${estado || 'all'}:${sexo || 'all'}:p${page}:l${limit}`;
 
   if (shouldCache) {
     const cached = cacheGet(cacheKey);
@@ -46,15 +47,20 @@ export const listMissing = async ({ page = 1, limit = 10, search = '', estado = 
     query.estado = estado;
   }
 
+  if (sexo) {
+    query.sexo = sexo;
+  }
+
   if (search) {
-    // Búsqueda insensible a mayúsculas/minúsculas en el nombre
-    query.nombreCompleto = { $regex: search, $options: 'i' };
+    // Utilizar el índice de texto de MongoDB para búsqueda rápida con q
+    query.$text = { $search: search };
   }
 
   const skip = (Number(page) - 1) * Number(limit);
   const total = await MissingPerson.countDocuments(query);
 
   const items = await MissingPerson.find(query)
+    .select('-__v') // Excluir campo de metadatos interno de mongoose
     .sort({ fechaRegistro: -1 })
     .skip(skip)
     .limit(Number(limit));

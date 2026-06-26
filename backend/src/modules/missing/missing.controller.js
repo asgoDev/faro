@@ -11,8 +11,14 @@ export const register = async (req, res, next) => {
 
 export const list = async (req, res, next) => {
   try {
-    const { page, limit, search, estado } = req.query;
-    const result = await listMissing({ page, limit, search, estado });
+    const { page, limit, search, q, estado, sexo } = req.query;
+    const result = await listMissing({
+      page,
+      limit,
+      search: q || search,
+      estado,
+      sexo,
+    });
     res.json({ success: true, ...result });
   } catch (error) {
     next(error);

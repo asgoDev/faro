@@ -43,3 +43,19 @@ export const registerMissingLimiter = rateLimit({
     legacyHeaders: false,
     skipSuccessfulRequests: false, // Contar también los exitosos
 });
+
+/**
+ * Limitador para consultas públicas (GET).
+ * Permite hasta 30 peticiones por minuto por IP para navegación fluida
+ * y búsquedas puntuales, evitando saturaciones o raspado masivo.
+ */
+export const publicReadLimiter = rateLimit({
+    windowMs: 60 * 1000, // 1 minuto
+    max: 7,
+    message: {
+        message: 'Has realizado demasiadas consultas. Por favor, espera un momento antes de continuar.',
+    },
+    standardHeaders: true,
+    legacyHeaders: false,
+});
+

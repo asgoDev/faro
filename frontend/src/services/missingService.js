@@ -11,9 +11,9 @@ export const registerMissing = async (payload) => {
   return data;
 };
 
-export const getMissing = async ({ page = 1, limit = 10, search = '', estado = 'DESAPARECIDO' } = {}) => {
+export const getMissing = async ({ page = 1, limit = 20, search = '', estado = 'DESAPARECIDO', sexo = '' } = {}) => {
   const { data } = await publicApi.get('/missing', {
-    params: { page, limit, search, estado },
+    params: { page, limit, q: search, estado, sexo },
   });
   return data;
 };

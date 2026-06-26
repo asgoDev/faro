@@ -15,19 +15,29 @@ export default function DesaparecidosPage() {
     setPage,
     activeTab,
     setActiveTab,
+    estado,
+    setEstado,
+    sexo,
+    setSexo,
   } = useMissingStore();
   
   const [selectedPerson, setSelectedPerson] = useState(null);
 
-  // Query para obtener las estadísticas
+  // Query para obtener las estadísticas (refrescadas cada 5 min de forma reactiva)
   const { data: statsData, isLoading: statsLoading } = useMissingStats();
 
-  // Query para obtener el listado con filtro de búsqueda y paginación
-  const { data: missingData, isLoading: missingLoading } = useMissingList({
+  // Query para obtener el listado con filtros combinados y paginación
+  const {
+    data: missingData,
+    isLoading: missingLoading,
+    isError: missingError,
+    error: fetchError,
+  } = useMissingList({
     page,
-    limit: 10,
+    limit: 20, // 20 registros por página según el plan
     search,
-    estado: 'DESAPARECIDO',
+    estado,
+    sexo,
   });
 
   const persons = missingData?.items || [];
@@ -53,6 +63,12 @@ export default function DesaparecidosPage() {
             pages={pagination.pages}
             onPageChange={setPage}
             onPersonClick={(person) => setSelectedPerson(person)}
+            estado={estado}
+            setEstado={setEstado}
+            sexo={sexo}
+            setSexo={setSexo}
+            isError={missingError}
+            error={fetchError}
           />
         </>
       ) : activeTab === 'alertas' ? (
