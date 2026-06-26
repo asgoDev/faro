@@ -18,7 +18,7 @@ export default function HeroSection() {
           </div>
 
           <h2 className="font-headline-lg-mobile text-2xl sm:text-3xl text-white font-extrabold uppercase tracking-tighter leading-tight font-montserrat text-left">
-            Rastreo de Desaparecidos
+            Rastreo de Personas Encontradas
           </h2>
         </div>
 
@@ -38,7 +38,7 @@ export default function HeroSection() {
           className="mt-8 bg-[#fecb00] text-[#6e5700] px-8 py-4 font-bold rounded-xl shadow-lg active:scale-95 transition-transform hover:bg-[#ffe08b] flex items-center gap-2 font-montserrat text-sm cursor-pointer"
         >
           <span className="material-symbols-outlined">person_add</span>
-          REGISTRAR DESAPARECIDO
+          REGISTRAR PERSONA ENCONTRADA
         </button>
       </div>
     </section>
