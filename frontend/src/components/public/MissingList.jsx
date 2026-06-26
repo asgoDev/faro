@@ -30,20 +30,7 @@ export default function MissingList({
 
       {/* Filter Selectors Bar */}
       <div className="glass-card p-3 rounded-2xl flex gap-3.5 w-full border border-white/10 shadow-lg">
-        <div className="flex-1">
-          <label className="text-[9px] text-white/50 uppercase font-extrabold tracking-wider mb-1 block">
-            Estado de Búsqueda
-          </label>
-          <select
-            value={estado}
-            onChange={(e) => setEstado(e.target.value)}
-            className="w-full bg-white/5 border border-white/15 rounded-xl px-2.5 py-1.5 text-xs text-white font-semibold focus:outline-none focus:ring-2 focus:ring-[#fecb00] focus:border-transparent transition-all cursor-pointer"
-          >
-            <option value="" className="bg-[#00346f] text-white font-semibold">Todos los casos</option>
-            <option value="DESAPARECIDO" className="bg-[#00346f] text-white font-semibold">Desaparecidos</option>
-            <option value="ENCONTRADO" className="bg-[#00346f] text-white font-semibold">Encontrados</option>
-          </select>
-        </div>
+        
 
         <div className="flex-1">
           <label className="text-[9px] text-white/50 uppercase font-extrabold tracking-wider mb-1 block">
