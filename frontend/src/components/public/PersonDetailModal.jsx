@@ -59,7 +59,7 @@ export default function PersonDetailModal({ person, onClose }) {
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 z-25 bg-black/40 text-[#fecb00] rounded-full w-8 h-8 flex items-center justify-center hover:bg-black/60 transition-all border border-white/10 active:scale-95 cursor-pointer"
+          className="absolute top-4 right-4 z-30 bg-black/60 text-[#fecb00] rounded-full w-8 h-8 flex items-center justify-center hover:bg-black/80 transition-all border border-white/10 active:scale-95 cursor-pointer"
         >
           <span className="material-symbols-outlined text-[16px]">close</span>
         </button>
@@ -177,7 +177,6 @@ export default function PersonDetailModal({ person, onClose }) {
               onClick={() => setShowReportForm(true)}
               className="w-full bg-emerald-500 hover:bg-emerald-600 text-white py-3.5 rounded-2xl font-extrabold flex items-center justify-center gap-2 hover:scale-[1.01] active:scale-95 transition-all text-sm tracking-wide shadow-lg cursor-pointer border border-emerald-400/20"
             >
-              <span className="material-symbols-outlined text-lg">favorite</span>
               REPORTAR COMO ENCONTRADO(A)
             </button>
           ) : (
