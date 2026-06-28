@@ -101,13 +101,13 @@ export default function PersonDetailModal({ person, onClose }) {
 
           {/* Text/Identity overlay */}
           <div className="relative z-10 p-5 text-center w-full bg-gradient-to-t from-black/95 via-black/50 to-transparent">
-            <h3 className="text-xl sm:text-2xl font-black font-montserrat text-white uppercase tracking-tight">
-              {person.nombreCompleto}
+            <h3 className="text-xl sm:text-2xl font-black font-montserrat text-white uppercase tracking-tight capitalize">
+              {person.nombreCompleto.toLowerCase()}
             </h3>
             <div className="flex gap-2 mt-1.5 justify-center text-[10px] font-bold tracking-wider text-[#fecb00]">
-              <span className="bg-white/10 px-3 py-0.5 rounded-full uppercase">{person.edad} AÑOS</span>
+              <span className="bg-white/10 px-3 py-0.5 rounded-full uppercase">{person.edad ? `${person.edad} AÑOS` : 'EDAD DESCONOCIDA'}</span>
               <span className="bg-white/10 px-3 py-0.5 rounded-full uppercase">
-                {person.sexo === 'M' ? 'MASCULINO' : person.sexo === 'F' ? 'FEMENINO' : 'OTRO'}
+                {person.sexo === 'M' ? 'MASCULINO' : person.sexo === 'F' ? 'FEMENINO' : 'OTRO SEXO'}
               </span>
             </div>
           </div>
@@ -115,6 +115,13 @@ export default function PersonDetailModal({ person, onClose }) {
 
         {/* Content Area - Frosted Card Slots */}
         <div className="p-5 space-y-3.5 max-h-[35vh] overflow-y-auto custom-scrollbar bg-[#00346f]/50">
+          {person.cedula && <div className="glass-card p-4 rounded-2xl flex gap-3.5 items-start hover:border-white/20 transition-colors">
+            <span className="material-symbols-outlined text-[#fecb00] shrink-0 text-xl mt-0.5">badge</span>
+            <div className="min-w-0 flex-1">
+              <h5 className="text-[10px] text-white/50 uppercase font-bold tracking-wider">Cédula</h5>
+              <p className="text-sm text-white/90 mt-0.5 leading-normal font-medium">{person.cedula}</p>
+            </div>
+          </div>}
           {/* Last Location */}
           <div className="glass-card p-4 rounded-2xl flex gap-3.5 items-start hover:border-white/20 transition-colors">
             <span className="material-symbols-outlined text-[#fecb00] shrink-0 text-xl mt-0.5">location_on</span>
@@ -140,7 +147,7 @@ export default function PersonDetailModal({ person, onClose }) {
           {/* Registered and Phone Details Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
             {/* Phone */}
-            <div className="glass-card p-4 rounded-2xl flex gap-3.5 items-start hover:border-white/20 transition-colors">
+            {person.telefonoContacto && (<div className={`glass-card p-4 rounded-2xl flex gap-3.5 items-start hover:border-white/20 transition-colors ${!person.telefonoContacto && 'col-span-2'}`}>
               <span className="material-symbols-outlined text-[#fecb00] shrink-0 text-xl">call</span>
               <div className="min-w-0 flex-1">
                 <h5 className="text-[10px] text-white/50 uppercase font-bold tracking-wider">Teléfono</h5>
@@ -151,7 +158,7 @@ export default function PersonDetailModal({ person, onClose }) {
                   {person.telefonoContacto}
                 </a>
               </div>
-            </div>
+            </div>)}
 
             {/* Date Registered */}
             <div className="glass-card p-4 rounded-2xl flex gap-3.5 items-start hover:border-white/20 transition-colors">
@@ -167,12 +174,28 @@ export default function PersonDetailModal({ person, onClose }) {
                 </p>
               </div>
             </div>
+
+            {/* Enlace */}
+            {person.enlaceUrl && (<div className="glass-card p-4 rounded-2xl flex gap-3.5 items-start hover:border-white/20 transition-colors">
+              <span className="material-symbols-outlined text-[#fecb00] shrink-0 text-xl">link</span>
+              <div className="min-w-0 flex-1">
+                <h5 className="text-[10px] text-white/50 uppercase font-bold tracking-wider">Enlace</h5>
+                <a
+                  href={person.enlaceUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs text-white hover:text-[#fecb00] font-bold mt-0.5 block truncate underline"
+                >
+                  {person.enlaceUrl}
+                </a>
+              </div>
+            </div>)}
           </div>
         </div>
 
         {/* Footer Area - Replaced call button with Report as Found button */}
         <div className="p-4 border-t border-white/10 bg-[#002d60] flex gap-2">
-          
+
         </div>
 
         {/* Report Overlay Form */}

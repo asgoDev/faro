@@ -29,8 +29,8 @@ export default function PersonCard({ person, onClick }) {
       {/* Text Information Area */}
       <div className="flex-1 min-w-0">
         <div className="flex items-center justify-between gap-2">
-          <h4 className="font-bold text-white font-montserrat truncate text-base">
-            {person.nombreCompleto}
+          <h4 className="font-bold text-white font-montserrat truncate text-base capitalize">
+            {person.nombreCompleto.toLowerCase()}
           </h4>
         </div>
 
