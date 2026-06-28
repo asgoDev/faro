@@ -8,22 +8,18 @@ const missingPersonSchema = new mongoose.Schema({
   },
   sexo: {
     type: String,
-    required: true,
     enum: ['M', 'F', 'Otro'],
   },
   edad: {
     type: Number,
-    required: true,
     min: 0,
     max: 120,
   },
   ultimaUbicacion: {
     type: String,
-    required: true,
   },
   telefonoContacto: {
     type: String,
-    required: true,
   },
   rasgosParticulares: {
     type: String,
