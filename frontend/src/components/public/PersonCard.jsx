@@ -41,12 +41,12 @@ export default function PersonCard({ person, onClick }) {
 
         {/* Informative Badges (Age and Gender) */}
         <div className="flex items-center gap-1.5 mt-2">
-          <span className="text-[9px] bg-white/10 px-2 py-0.5 rounded-full text-white/80 font-bold uppercase tracking-wider">
+          {person.edad && <span className="text-[9px] bg-white/10 px-2 py-0.5 rounded-full text-white/80 font-bold uppercase tracking-wider">
             {person.edad} años
-          </span>
-          <span className="text-[9px] bg-white/10 px-2 py-0.5 rounded-full text-white/80 font-bold uppercase tracking-wider">
+          </span>}
+          {person.sexo && <span className="text-[9px] bg-white/10 px-2 py-0.5 rounded-full text-white/80 font-bold uppercase tracking-wider">
             {person.sexo === 'M' ? 'Masculino' : person.sexo === 'F' ? 'Femenino' : 'Otro'}
-          </span>
+          </span>}
         </div>
       </div>
 

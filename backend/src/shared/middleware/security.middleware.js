@@ -50,7 +50,7 @@ export const registerMissingLimiter = rateLimit({
  * y búsquedas puntuales, evitando saturaciones o raspado masivo.
  */
 export const publicReadLimiter = rateLimit({
-    windowMs: 60 * 1000, // 1 minuto
+    windowMs: 30 * 1000, // 1 minuto
     max: 7,
     message: {
         message: 'Has realizado demasiadas consultas. Por favor, espera un momento antes de continuar.',
