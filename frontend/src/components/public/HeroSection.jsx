@@ -8,8 +8,8 @@ export default function HeroSection() {
   return (
     <section className="relative flex flex-col items-center justify-center text-center px-4 py-12 overflow-hidden bg-[#004a99]">
       <div className="relative z-10 flex flex-col items-center w-full max-w-xl">
-        <div className="flex justify-center items-center mb-6">
-          <div className="w-24 h-12 shrink-0">
+        <div className="flex flex-col gap-4 justify-center items-center mb-6 px-2">
+          <div className="w-28 h-16 shrink-0">
             <img
               alt="Logo Faro de Venezuela"
               className="w-full h-full object-contain"
@@ -17,7 +17,7 @@ export default function HeroSection() {
             />
           </div>
 
-          <h2 className="font-headline-lg-mobile text-2xl sm:text-3xl text-white font-extrabold uppercase tracking-tighter leading-tight font-montserrat text-left">
+          <h2 className="font-headline-lg-mobile text-2xl sm:text-3xl text-white font-extrabold uppercase tracking-tighter leading-tight font-montserrat text-center">
             Rastreo de Personas Encontradas
           </h2>
         </div>
