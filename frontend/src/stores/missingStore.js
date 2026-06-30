@@ -4,9 +4,9 @@ export const useMissingStore = create((set) => ({
   search: '',
   page: 1,
   activeTab: 'inicio',
-  estado: 'DESAPARECIDO', // Por defecto casos activos (Desaparecidos)
+  estado: '', // Por defecto casos activos (Desaparecidos)
   sexo: '', // Todos los sexos por defecto
-  
+
   setSearch: (search) => set({ search, page: 1 }), // Reiniciar a pág 1 en búsqueda
   setPage: (page) => set({ page }),
   setEstado: (estado) => set({ estado, page: 1 }), // Reiniciar a pág 1 al filtrar por estado
